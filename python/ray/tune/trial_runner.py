@@ -240,9 +240,12 @@ class TrialRunner(object):
     def is_finished(self):
         """Returns whether all trials have finished running."""
 
-        if self._total_time > self._global_time_limit:
+#         if self._total_time > self._global_time_limit:
+        total_time = time.time()
+        if total_time - self._start_time > self._global_time_limit:
             logger.warning("Exceeded global time limit {} / {}".format(
-                self._total_time, self._global_time_limit))
+#                 self._total_time, self._global_time_limit))
+                total_time - self._start_time, self._global_time_limit))
             return True
 
         trials_done = all(trial.is_finished() for trial in self._trials)
